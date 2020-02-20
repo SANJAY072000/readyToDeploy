@@ -15,11 +15,11 @@ def predict():
     url=url[0]
 
     options = webdriver.ChromeOptions()
-    options.add_argument('--ignore-certificate-errors')
-    options.add_argument("--test-type")
-    options.add_argument("--headless")
-    options.binary_location = "/usr/bin/chromium"
-    driver = webdriver.Chrome("./chromedriver_win32/chromedriver.exe")
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
     driver.get(url)
 
     # JS pages take time to load and sometimes after we scroll down the page
