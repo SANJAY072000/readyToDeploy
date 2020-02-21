@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 import time
 from flask import Flask, request, jsonify, render_template
+import os
 
 app = Flask(__name__)
 
@@ -20,6 +21,12 @@ def predict():
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    # options = webdriver.ChromeOptions()
+    # options.add_argument('--ignore-certificate-errors')
+    # options.add_argument("--test-type")
+    # options.add_argument("--headless")
+    # options.binary_location = "/usr/bin/chromium"
+    # driver = webdriver.Chrome("./chromedriver_win32/chromedriver.exe")
     driver.get(url)
 
     # JS pages take time to load and sometimes after we scroll down the page
