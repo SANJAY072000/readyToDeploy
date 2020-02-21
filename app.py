@@ -15,26 +15,33 @@ def predict():
     url = [str(x) for x in request.form.values()]
     url=url[0]
 
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('--ignore-certificate-errors')
-    # options.add_argument("--test-type")
-    # options.add_argument("--headless")
-    # options.binary_location = "/usr/bin/chromium"
-    # driver = webdriver.Chrome("./chromedriver_win32/chromedriver.exe")
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    # chrome_options.add_argument("--headless")
+    # chrome_options.add_argument("--disable-dev-shm-usage")
+    # chrome_options.add_argument("--no-sandbox")
+    # driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument("--test-type")
+    options.add_argument("--headless")
+    options.binary_location = "/usr/bin/chromium"
+    driver = webdriver.Chrome("./chromedriver_win32/chromedriver.exe")
     driver.get(url)
 
-    # JS pages take time to load and sometimes after we scroll down the page
+
+    # # JS pages take time to load and sometimes after we scroll down the page
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
                           "var lenOfPage=document.body.scrollHeight;return lenOfPage;")
 
+
     # sleep for 3 seconds
-    time.sleep(3)
+    time.sleep(5)
+
+    driver.refresh()
+
+    driver.get(driver.current_url)
+
 
     # lst1 is the list of all urls
     lst1 = list()
@@ -85,10 +92,9 @@ def predict():
         lst1.append(i.get_attribute('href'))
         lst1.append(i.get_attribute('src'))
 
-    # sleep for 1 seconds
-    time.sleep(1)
+
     driver.close()
-    data=list(set(lst1))
+    data = list(set(lst1))
 
     return render_template('index.html', prediction_text=data)
 

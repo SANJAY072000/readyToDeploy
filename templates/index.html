@@ -19,12 +19,8 @@
    <br>
 
    {% for result in prediction_text %}
-   <table>
-            <tr style="margin-top:10px;text-align:center;">
-                <th>{{ result }}</th>
+   <a href='{{result}}' target='_blank'>{{ result }}</a>
                 <hr/>
-            </tr>
-          </table>
 {% endfor %}
 
  </div>
