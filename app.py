@@ -40,10 +40,10 @@ def predict():
 
 
     # sleep for 3 seconds
-    time.sleep(5)
+    time.sleep(3)
 
     driver.refresh()
-
+    # if url != driver.current_url:
     driver.get(driver.current_url)
 
 
@@ -96,7 +96,8 @@ def predict():
         lst1.append(i.get_attribute('href'))
         lst1.append(i.get_attribute('src'))
 
-
+    # sleep for 2 seconds
+    time.sleep(2)
     driver.close()
     data = list(set(lst1))
 
