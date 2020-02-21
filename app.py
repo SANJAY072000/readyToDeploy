@@ -4,7 +4,6 @@ from flask import Flask, request, jsonify, render_template
 import os
 import time
 
-
 app = Flask(__name__)
 
 @app.route('/')
@@ -58,7 +57,7 @@ def predict():
     lst2 += driver.find_elements_by_xpath('//*[@href]')
 
     # select all urls based on src attribute through XPATH
-    lst2 += driver.find_elements_by_xpath('//*[@src]')
+    # lst2 += driver.find_elements_by_xpath('//*[@src]')
 
     # select the elements
     btns, allemnts = list(), list()
@@ -70,37 +69,43 @@ def predict():
         actionchains = ActionChains(driver)
         actionchains.click(i).perform()
         lst2 += driver.find_elements_by_xpath('//*[@href]')
-        lst2 += driver.find_elements_by_xpath('//*[@src]')
+        # lst2 += driver.find_elements_by_xpath('//*[@src]')
 
     # button hover
     for i in btns:
         actionchains = ActionChains(driver)
         actionchains.move_to_element(i).perform()
         lst2 += driver.find_elements_by_xpath('//*[@href]')
-        lst2 += driver.find_elements_by_xpath('//*[@src]')
+        # lst2 += driver.find_elements_by_xpath('//*[@src]')
 
     # all hoverable elements
     for i in allemnts:
         actionchains = ActionChains(driver)
         actionchains.move_to_element(i).perform()
         lst2 += driver.find_elements_by_xpath('//*[@href]')
-        lst2 += driver.find_elements_by_xpath('//*[@src]')
+        # lst2 += driver.find_elements_by_xpath('//*[@src]')
 
     # all clickable elements
         for i in allemnts:
             actionchains = ActionChains(driver)
             actionchains.click(i).perform()
             lst2 += driver.find_elements_by_xpath('//*[@href]')
-            lst2 += driver.find_elements_by_xpath('//*[@src]')
+            # lst2 += driver.find_elements_by_xpath('//*[@src]')
 
     for i in lst2:
         lst1.append(i.get_attribute('href'))
-        lst1.append(i.get_attribute('src'))
+        # lst1.append(i.get_attribute('src'))
+    aisa = list()
+    for i in lst1:
+        if i != None:
+            if '.css' not in i and '.jpg' not in i and '.png' not in i:
+                aisa.append(i)
+
 
     # sleep for 2 seconds
     time.sleep(2)
     driver.close()
-    data = list(set(lst1))
+    data = list(set(aisa))
 
     return render_template('index.html', prediction_text=data)
 
