@@ -45,23 +45,23 @@ def predict():
         pass
 
 
-    time.sleep(15)
+    time.sleep(1)
 
 
     allemnts = driver.find_elements()
 
 
     # # JS pages take time to load and sometimes after we scroll down the page
-    # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
-    #                       "var lenOfPage=document.body.scrollHeight;return lenOfPage;")
-    #
-    # time.sleep(30)
-    # allemnts += driver.find_elements()
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
+                          "var lenOfPage=document.body.scrollHeight;return lenOfPage;")
 
-    for i in range(3):
-        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(2)
-        allemnts += driver.find_elements()
+    time.sleep(3)
+    allemnts += driver.find_elements()
+
+    # for i in range(3):
+    #     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    #     time.sleep(2)
+    #     allemnts += driver.find_elements()
 
 
     # lst1 is the list of all urls
