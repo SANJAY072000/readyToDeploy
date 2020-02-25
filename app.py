@@ -44,6 +44,8 @@ def predict():
 
     allemnts = driver.find_elements()
 
+    time.sleep(3)
+
 
     # # JS pages take time to load and sometimes after we scroll down the page
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
@@ -83,8 +85,8 @@ def predict():
     driver.close()
     data = list(set(lst1))
 
-    # return render_template('index.html', prediction_text=data)
-    return jsonify({url.split('//')[1].split('.')[0]:data})
+    return render_template('index.html', prediction_text=data)
+    # return jsonify({url.split('//')[1].split('.')[0]:data})
 
 
 if __name__ == "__main__":
