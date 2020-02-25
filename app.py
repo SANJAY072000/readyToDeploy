@@ -38,8 +38,6 @@ def predict():
     except TimeoutException:
         pass
 
-    # sleep for 30 seconds
-    time.sleep(30)
 
     try:
         driver.refresh()
@@ -47,7 +45,7 @@ def predict():
         pass
 
 
-    time.sleep(30)
+    time.sleep(15)
 
 
     allemnts = driver.find_elements()
@@ -60,9 +58,9 @@ def predict():
     # time.sleep(30)
     # allemnts += driver.find_elements()
 
-    for i in range(20):
+    for i in range(3):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-        time.sleep(5)
+        time.sleep(2)
         allemnts += driver.find_elements()
 
 
@@ -94,7 +92,7 @@ def predict():
                 pass
 
 
-    time.sleep(3)
+    time.sleep(1)
     driver.close()
     data = list(set(lst1))
 
