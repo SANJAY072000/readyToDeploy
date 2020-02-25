@@ -1,7 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from flask import Flask, request, jsonify, render_template
-from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 import os
 import time
 
@@ -31,25 +31,39 @@ def predict():
     # options.binary_location = "/usr/bin/chromium"
     # driver = webdriver.Chrome("./chromedriver_win32/chromedriver.exe")
 
-
-    driver.get(url)
     lst2,allemnts=list(),list()
 
-    # sleep for 3 seconds
-    time.sleep(3)
+    try:
+        driver.get(url)
+    except TimeoutException:
+        pass
 
-    driver.refresh()
-    # if url != driver.current_url:
-    driver.get(driver.current_url)
+    # sleep for 30 seconds
+    time.sleep(30)
+
+    try:
+        driver.refresh()
+    except TimeoutException:
+        pass
+
+
+    time.sleep(30)
+
 
     allemnts = driver.find_elements()
 
-    time.sleep(3)
-
 
     # # JS pages take time to load and sometimes after we scroll down the page
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
-                          "var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+    # driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
+    #                       "var lenOfPage=document.body.scrollHeight;return lenOfPage;")
+    #
+    # time.sleep(30)
+    # allemnts += driver.find_elements()
+
+    for i in range(20):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(5)
+        allemnts += driver.find_elements()
 
 
     # lst1 is the list of all urls
@@ -77,8 +91,7 @@ def predict():
             try:
                 lst1.append(i.get_attribute('href'))
             except StaleElementReferenceException as Exception:
-                print('StaleElementReferenceException while trying to type password,\
-                 trying to find element again')
+                pass
 
 
     time.sleep(3)
