@@ -96,8 +96,8 @@ def predict():
     driver.close()
     data = list(set(lst1))
 
-    return render_template('index.html', prediction_text=data)
-    # return jsonify({url.split('//')[1].split('.')[0]:data})
+    # return render_template('index.html', prediction_text=data)
+    return jsonify({"urlsArray":data})
 
 
 if __name__ == "__main__":
