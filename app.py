@@ -55,7 +55,7 @@ def predict():
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);"
                           "var lenOfPage=document.body.scrollHeight;return lenOfPage;")
 
-    time.sleep(3)
+    time.sleep(1)
     allemnts += driver.find_elements()
 
     # for i in range(3):
