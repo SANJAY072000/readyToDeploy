@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from flask import Flask, request, jsonify, render_template
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
+from urllib.parse import unquote
 import os
 import time
 
@@ -87,7 +88,7 @@ def predict():
 
     for i in lst2:
             try:
-                lst1.append(i.get_attribute('href'))
+                lst1.append(unquote(i.get_attribute('href')))
             except StaleElementReferenceException as Exception:
                 pass
 
