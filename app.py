@@ -55,7 +55,7 @@ def predict():
     #
     # allemnts += driver.find_elements()
 
-    for i in range(6):
+    for i in range(4):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(0.5)
         allemnts += driver.find_elements()
